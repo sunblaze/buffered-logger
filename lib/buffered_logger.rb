@@ -15,7 +15,7 @@ class BufferedLogger < ::Logger
   end
 
   def end
-    raise NotStartedError, "not started" unless started?
+    puts "not started" unless started?
     @logdev.end
     sweep if rand <= sweep_frequency
     nil
@@ -26,7 +26,7 @@ class BufferedLogger < ::Logger
   end
 
   def start(&block)
-    raise AlreadyStartedError, "already started" if started?
+    puts "already started" if started?
     @logdev.start
 
     if block_given?

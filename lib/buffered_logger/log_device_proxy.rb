@@ -12,11 +12,12 @@ class BufferedLogger
     end
 
     def end
-      @logdev.write(@buffers.delete(key).string)
+      buf = @buffers.delete(key)
+      @logdev.write(buf.string) if buf
     end
 
     def flush
-      log, @buffers[key] = @buffers.delete(key).string, StringIO.new
+      log, @buffers[key] = (b = @buffers.delete(key) and b.string), StringIO.new
       @logdev.write(log)
     end
 
